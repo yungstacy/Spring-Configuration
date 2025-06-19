@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+<!--    тут указываем значения properties, чтобы не хранить их в файле config, так как это не рекомендуется делать (хардкодный вариант)-->
+    <context:property-placeholder location="classpath:myApplication.properties"/>
+
+    <bean id ="myZoo"
+          class = "spring_intro.Mouse">
+
+    </bean>
+    <!--    внедрение зависимостей с помощью КОНСТРУКТОРА-->
+<!--    <bean id ="myPerson"-->
+<!--          class = "spring_intro.Person">-->
+<!--        <constructor-arg ref="myZoo"/>-->
+
+<!--    </bean>-->
+
+    <!--    внедрение зависимостей с помощью СЕТТЕРОВ-->
+<!--    происходит конвертация: pet -> setPet-->
+    <bean id ="myPerson"
+          class = "spring_intro.Person">
+        <constructor-arg ref="myZoo"/>
+<!--        DI-->
+        <property name="zoo" ref="myZoo"/>
+<!--        -->
+        <property name="name" value="${person.name}"/>
+        <property name="age" value="${person.age}"/>
+    </bean>
+</beans>
